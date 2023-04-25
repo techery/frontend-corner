@@ -13,6 +13,10 @@
 		{
 			link: '/card/add',
 			title: 'Add card'
+		},
+		{
+			link: '/auth',
+			title: 'Auth'
 		}
 	];
 
