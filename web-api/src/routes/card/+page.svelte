@@ -1,9 +1,9 @@
 <script lang="ts">
+	import Card from './card.svelte';
 	import { cardStore } from '../../stores/cards';
-	import Barcode from '../../lib/barcode/Barcode.svelte';
 
-	const removeItem = (idToRemove: number): void => {
-		$cardStore = $cardStore.filter(({ id }) => id !== idToRemove);
+	const removeItem = (event): void => {
+		$cardStore = $cardStore.filter(({ id }) => id !== event.detail.id);
 	};
 </script>
 
@@ -16,9 +16,7 @@
 		<ul>
 			{#each $cardStore as { id, title, value }}
 				<li>
-					<span on:click={() => removeItem(id)}>X</span>
-					<h3>{title}</h3>
-					<Barcode {value} elementTag="svg" options={{}} />
+					<Card cardId={id} {title} {value} on:remove={removeItem} />
 				</li>
 			{/each}
 		</ul>
@@ -46,16 +44,5 @@
 	li {
 		list-style: none;
 		border: 1px solid black;
-	}
-
-	li span {
-		float: right;
-		margin: 10px;
-		cursor: pointer;
-	}
-
-	li :global(svg) {
-		width: 100%;
-		height: auto;
 	}
 </style>
