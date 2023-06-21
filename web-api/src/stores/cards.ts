@@ -14,5 +14,18 @@ if (browser) {
 	window.onstorage = () => cardStore.set(getCardsFromLocalStorage());
 
 	// Dump values to localStorage on every update
-	cardStore.subscribe((value: Card[]) => localStorage.setItem('cards', JSON.stringify(value)));
+	cardStore.subscribe((value: Card[]) => {
+		const stringData = JSON.stringify(value);
+
+		localStorage.setItem('cards', stringData);
+
+		//dump to backend API
+		const options = {
+			method: 'POST',
+			body: stringData
+		};
+		fetch( '/card', options )
+			.then( response => response.json() )
+			.then(console.log);
+	});
 }

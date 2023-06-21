@@ -9,4 +9,22 @@
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
+
+	<script>
+		if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+			// Register the service worker
+			navigator.serviceWorker
+					.register('%sveltekit.assets%/worker.js')
+					.then(() => {
+						console.log('Service Worker registered');
+
+						navigator.serviceWorker.addEventListener("message", (event) => {
+							console.log(`Received message from webworker:`, event.data);
+						});
+					})
+					.catch((error) => {
+						console.log('Service Worker registration failed: ', error);
+					});
+		}
+	</script>
 </html>
