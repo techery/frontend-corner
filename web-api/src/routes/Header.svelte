@@ -17,7 +17,15 @@
 		{
 			link: '/auth',
 			title: 'Auth'
-		}
+		},
+		{
+			link: '/idle-callback',
+			title: 'Idle Callback'
+		},
+		{
+			link: '/readable-stream',
+			title: 'Readable Stream'
+		},
 	];
 
 	$: isCurrentPage = (url) => ($page.url.pathname === url ? 'page' : undefined);
